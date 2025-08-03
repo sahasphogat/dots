@@ -1,0 +1,32 @@
+#!/bin/bash
+
+status=$(pomod-client status 2>/dev/null)
+
+if [ "$status" == "" ]; then
+    echo '{"text": " pomod", "tooltip": "Daemon not running"}'
+    exit 0
+fi
+
+mode=$(echo "$status" | jq -r .mode)
+running=$(echo "$status" | jq -r .running)
+time_left=$(echo "$status" | jq -r .time_left)
+
+min=$((time_left / 60))
+sec=$((time_left % 60))
+formatted=$(printf "%02d" "$min")
+
+# Font Awesome icons
+icon=""
+if [ "$mode" == "work" ]; then
+    icon=" "  # hourglass-start
+elif [ "$mode" == "break" ]; then
+    icon=" "  # mug-hot
+fi
+
+# Prepend pause icon if paused
+if [ "$running" == "false" ]; then
+    icon=" $icon"  # pause
+fi
+
+echo "{\"text\": \"$icon $formatted\", \"tooltip\": \"Mode: $mode\nRunning: $running\"}"
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+notify-send "Pomodoro" "Session finished"
+mpv --no-video --really-quiet ~/.local/share/pomod/sound.mp4 &
+

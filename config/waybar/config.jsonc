@@ -1,0 +1,56 @@
+{
+  "layer": "top",
+  "position": "top",
+  "exclusive": "false",
+
+  "modules-center": [
+  //"mpd"
+  ],
+
+  "modules-left": ["custom/pomod"],
+  "modules-right": [
+    "tray",
+    "pulseaudio",
+    "battery",
+    "clock"
+  ],
+  "pulseaudio": {
+    "format": "󰕾 {volume}%",
+    "format-muted": "󰖁 muted",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "scroll-step": 1
+  },
+
+  "clock": {
+    "format": "{:%d %b %H:%M}",
+    "interval": 60,
+    "tooltip": true,
+    "tooltip-format": "{:%A, %d %B %Y | %H:%M:%S}"
+  },
+
+  "battery": {
+    "format": "󰁹 {capacity}%",
+    "interval": 60
+  },
+
+  "mpd": {
+    "format": "{stateIcon} {artist} - {title}",
+    "format-disconnected": "MPD disconnected",
+    "format-stopped": "MPD stopped",
+    "state-icons": {
+      "playing": "",
+      "paused": ""
+    },
+    "on-click": "mpc toggle",
+    "on-click-right": "music player"
+  },
+
+  "custom/pomod": {
+    "exec": "~/.local/bin/pomod-waybar",
+    "interval": 60,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "pomod-client toggle",
+    "on-click-right": "pomod-client finish"
+  }
+}

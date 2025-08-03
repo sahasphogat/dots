@@ -1,0 +1,50 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", monospace;
+  font-size: 18px;
+  background: #282c34;
+  color: #abb2bf;
+  border: none;
+}
+
+#custom-pomod {
+  background-color: #21252b;
+  color: #c678dd; /* purple 🍅 */
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+
+#mpd {
+  background-color: #21252b;
+  color: #61afef; /* blue 🎵 */
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+/* Right modules */
+#pulseaudio {
+  background-color: #21252b;
+  color: #98C379; /* green */
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+#pulseaudio.muted {
+  color: #e06c75; /* red */
+}
+
+#battery {
+  background-color: #21252b;
+  color: #c678dd; /* pink */
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+
+#clock {
+  background-color: #21252b;
+  color: #d19a66; /* orange */
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 4px 0 8px;
+}

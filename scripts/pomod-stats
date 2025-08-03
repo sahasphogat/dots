@@ -1,0 +1,58 @@
+#!/bin/bash
+
+FILE="$HOME/.local/share/pomod/log.jsonl"
+TODAY=$(date +%F)
+
+# ANSI colors
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
+NC="\033[0m"  # No Color
+
+# Find all unique work days up to today
+#jq -r --arg today "$TODAY" '
+#  select(.type == "work")
+#  | select(.end <= $today)
+#  | (.end | split("T")[0])
+#' "$FILE" | sort -u |
+#while read -r DATE; do
+#  total_seconds=$(jq -r --arg date "$DATE" '
+#    select(.type == "work")
+#    | select(.end | startswith($date))
+#    | .duration
+#  ' "$FILE" | paste -sd+ - | bc)
+
+jq -r --arg today "$TODAY" '
+  select(.type == "work")
+  | select((.end | split("T")[0]) | . <= $today)
+  | (.end | split("T")[0])
+' "$FILE" | sort -u |
+while read -r DATE; do
+  total_seconds=$(jq -r --arg date "$DATE" '
+    select(.type == "work")
+    | select(.end | startswith($date))
+    | .duration
+  ' "$FILE" | paste -sd+ - | bc)
+
+
+  # Skip days with no duration
+  if [[ -z "$total_seconds" || "$total_seconds" -eq 0 ]]; then
+     continue
+  fi
+
+  hours=$(( total_seconds / 3600 ))
+  minutes=$(( (total_seconds % 3600) / 60 ))
+
+  # Build time string
+  time_str=$(printf "%02d hrs %02d mins" "$hours" "$minutes")
+
+  # Determine message
+  if (( total_seconds >= 18000 )); then  # 5 hours
+    msg=""
+  else
+    msg=""
+  fi
+
+  # Output
+  printf "${GREEN}%s${NC} - ${BLUE}%s${NC}\n" "$DATE" "$time_str"
+done
+

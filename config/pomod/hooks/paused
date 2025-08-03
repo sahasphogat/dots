@@ -1,0 +1,3 @@
+#!/bin/bash
+notify-send -r 4321 "Pomodoro" "Paused"
+

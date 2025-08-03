@@ -1,0 +1,25 @@
+#!/bin/sh
+get_brightness() {
+  brightnessctl | awk -F'[()]' '/Current/ { print $2 }'
+}
+case "$1" in
+  up)
+    brightnessctl set +5%
+    ;;
+  down)
+    brightnessctl set 5%-
+    ;;
+  sup)
+    brightnessctl set 1%-
+    ;;
+  sdown)
+    brightnessctl set 1%-
+    ;;
+  *)
+    echo "Usage: $0 {up|down}" >&2
+    exit 1
+    ;;
+esac
+
+notify-send -t 1500 -r 101 "Brightness: $(get_brightness)"
+
