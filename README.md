@@ -1,5 +1,5 @@
 # dots
-![Screenshot](rice.png)
+[![Screenshot](rice.png)](https://www.youtube.com/watch?v=v-sMgHZa3XM)
 
 # requirements
 niri  
